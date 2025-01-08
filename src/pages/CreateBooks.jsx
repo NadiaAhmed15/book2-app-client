@@ -19,7 +19,19 @@ const CreateBooks = () => {
       enqueueSnackbar("All fields are required", { variant: "warning" });
       return;
     }
-
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+    
+        reader.onload = () => {
+          const base64Image = reader.result; // Base64-encoded image
+          setImage(base64Image);
+        };
+    
+        reader.readAsDataURL(file); // Read the file as a Base64-encoded string
+      }
+    };
     const formData = new FormData();
     formData.append("title", title);
     formData.append("author", author);
